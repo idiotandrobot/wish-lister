@@ -43,7 +43,7 @@ function scrapethis(listid, callback)
 }
 
 app.get("/list", function (request, response) {
-  var listid = request.query.listid.toarray();  
+  var listid = request.query.listid;  
   scrapethis(listid, function (title, items) {
     response.send({ items, title});
   });
