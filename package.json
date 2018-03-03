@@ -1,0 +1,22 @@
+{
+	"name": "abrasive-meal",
+	"version": "0.0.2",
+	"description": "Amazon List reader using scrape-it",
+	"main": "server.js",
+	"scripts": {
+		"start": "node server.js"
+	},
+	"dependencies": {
+    "express": "^4.12.4",
+    "scrape-it": "*"
+	},
+	"engines": {
+		"node": "4.4.5"
+	},
+	"keywords": [
+		"node",
+		"express",
+		"scrape-it"
+	],
+	"license": "MIT"
+}

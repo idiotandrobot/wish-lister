@@ -1,0 +1,43 @@
+<!-- This is a static file -->
+<!-- served from your routes in server.js -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Amazon List reader</title>
+    <meta name="description" content="Amazon List reader using scrape-it">
+    <link id="favicon" rel="icon" href="https://glitch.com/favicon.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+  <body>
+        <div>
+          <label>Amazon List</label><br>
+          <textarea id="listid" placeholder="Amazon list id"></textarea><br>
+          <button class="margin--s btn btn--s" onclick="loadlist(document.getElementById('listid').value)"><b>Refresh</b></button><br>
+        </div>
+    <header>
+      <h1>
+        <div id="title"></div>
+      </h1>
+    </header>
+
+    <main>
+      <section class="items">
+        <ol id="items">
+        </ol>
+      </section>
+      
+    </main>
+    <script src="https://button.glitch.me/button.js" data-style="glitch"></script>
+    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
+
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script src="/client.js"></script>
+
+  </body>
+</html>
