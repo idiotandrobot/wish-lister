@@ -62,10 +62,11 @@ const promiseSerial = funcs =>
 
 app.get("/lists", async function (request, response) {
   var listids = request.query.ids.split(',');
-  
+  console.log(request.query.topn);
+  var topn = request.query.topn || 10;
   var funcs = listids.map(listid => () => getlist(listid));
   var books = await promiseSerial(funcs);
-  var top = books.sort(function(a, b){return a.price-b.price}).slice(0, 15);
+  var top = books.sort(function(a, b){return a.price-b.price}).slice(0, topn);
   response.send(top);
 });
 

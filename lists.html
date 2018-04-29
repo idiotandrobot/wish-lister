@@ -14,8 +14,15 @@
   <body>
         <div>
           <label>Amazon List</label><br>
+          <select id="topn" style="width:50px;" onchange="loadlist1()">
+            <option value="3">3</option>
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select ><br>
           <textarea id="listids" style="width:500px;" placeholder="Amazon list id"></textarea><br>
-          <button class="margin--s btn btn--s" onclick="loadlist(document.getElementById('listids').value)"><b>Refresh</b></button><br>
+          <!--button class="margin--s btn btn--s" onclick="loadlist1()"><b>Refresh</b></button><br-->
         </div>
     <header>
       <h1>

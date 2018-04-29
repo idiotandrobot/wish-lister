@@ -8,17 +8,21 @@ $.urlParam = function (name) {
     return results[1] || 0;
 }
 
-function loadlist(listids) {
+function loadlist1() {
+  loadlist2(document.getElementById('listids').value, document.getElementById('topn').value);
+}
+
+function loadlist2(listids, topn) {
   var parameters = {
-    ids: listids
+    ids: listids,
+    topn: topn
   }
   //
+  $('div#title').empty().append("Top ").append(document.getElementById('topn').value);
+  $('ol#items').empty();
   $.get('/lists'+'?'+$.param(parameters), function(data) {
-      var books = data
-
-      $('div#title').empty().append("Top 10");
-      $('ol#items').empty();
-      books.sort(function(a, b){return a.price-b.price})
+      var books = data     
+      books//.sort(function(a, b){return a.price-b.price})
         .forEach(function(book) {
       //$('<li></li>').text().appendTo('ul#items');
       
@@ -29,5 +33,5 @@ function loadlist(listids) {
 
 $(function() {
   document.getElementById('listids').value = $.urlParam('ids');
-  loadlist(document.getElementById('listids').value);
+  loadlist1();
 });
