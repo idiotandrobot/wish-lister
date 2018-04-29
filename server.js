@@ -17,10 +17,13 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/index.html');
 });
 
-function scrapethis(listid, callback)
+app.get("/lists.html", function (request, response) {
+  response.sendFile(__dirname + '/lists.html');
+});
+
+async function scrapethis(listid)
 {
-  var scrapedData;
-  scrapeIt(website + "/hz/wishlist/ls/" + listid + "?filter=unpurchased&sort=price-asc", {
+  var result = await scrapeIt(website + "/hz/wishlist/ls/" + listid + "?filter=unpurchased&sort=price-asc", {
     items: {
           listItem: "div.g-item-sortable"
         , name: "items"
@@ -35,31 +38,35 @@ function scrapethis(listid, callback)
           }
       }
     ,title: "#profile-list-name"
-  }, (err, page) => {
-      console.log(err || page);
-      scrapedData=err || page;
-      callback(scrapedData.title, scrapedData.items);
   });  
+  return result.data;
 }
 
-app.get("/list", function (request, response) {
+async function getlist(listid)
+{
+  var result = await scrapethis(listid);
+  return result.items;
+}
+
+app.get("/list", async function (request, response) {
   var listid = request.query.listid;  
-  scrapethis(listid, function (title, items) {
-    response.send({ items, title});
-  });
+  var list = await scrapethis(listid);
+  response.send(list);
 });
 
-app.get("/lists", function (request, response) {
+// via https://hackernoon.com/functional-javascript-resolving-promises-sequentially-7aac18c4431e
+const promiseSerial = funcs =>
+  funcs.reduce((promise, func) =>
+    promise.then(result => func().then(Array.prototype.concat.bind(result))),
+    Promise.resolve([]))
+
+app.get("/lists", async function (request, response) {
   var listids = request.query.ids.split(',');
-  console.log(listids);
-  var books = [];
-  listids.forEach(function(listid, i) {
-    scrapethis(listid, function (title, moreBooks) {    
-          books = books.concat(moreBooks);
-          if (i == listids.length - 1)
-            response.send(books.sort(function(a, b){return a.price-b.price}).slice(0, 10));
-        })
-  });
+  
+  var funcs = listids.map(listid => () => getlist(listid));
+  var books = await promiseSerial(funcs);
+  var top = books.sort(function(a, b){return a.price-b.price}).slice(0, 15);
+  response.send(top);
 });
 
 // listen for requests :)
