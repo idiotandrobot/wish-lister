@@ -1,22 +1,22 @@
 {
-	"name": "abrasive-meal",
-	"version": "0.0.2",
-	"description": "Amazon List reader using scrape-it",
-	"main": "server.js",
-	"scripts": {
-		"start": "node server.js"
-	},
-	"dependencies": {
-    "express": "^4.12.4",
-    "scrape-it": "*"
-	},
-	"engines": {
-		"node": "4.4.5"
-	},
-	"keywords": [
-		"node",
-		"express",
-		"scrape-it"
-	],
-	"license": "MIT"
+  "name": "abrasive-meal",
+  "version": "0.0.2",
+  "description": "Amazon List reader using scrape-it",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "scrape-it": "^5.0.4"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "scrape-it"
+  ],
+  "license": "MIT"
 }
